@@ -1,0 +1,18 @@
+<sidebar></sidebar>
+<div class="list">
+  <md-list>
+  	<div *ngIf="items | async as items; else loading">
+		<ng-container *ngIf="items.length; else noItems">
+  			<div class="item-row" *ngFor="let item of items | search:'LoanNumber,Borrower_LastName,Borrower_FirstName':searchTerm" [class.selected]="selectedItemId === item.ORDER_ID" >
+		      <list-item [item]="item"></list-item>
+		      <div *ngIf="selectedItem|async as itemData">
+		        <list-item-details [data]="itemData" *ngIf="selectedItemId === item.ORDER_ID"></list-item-details>
+		      </div>
+		      <!-- <router-outlet *ngIf="selectedItemId === item.ORDER_ID"></router-outlet> -->
+		    </div>
+		</ng-container>
+		<ng-template #noItems>No Items!</ng-template>
+	</div>
+  	<ng-template #loading>loading animation...</ng-template>
+  </md-list>
+</div>
