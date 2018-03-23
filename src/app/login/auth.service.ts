@@ -38,6 +38,7 @@ export class Auth {
       password: password,
     }, (error, result) => {
       if(error) {
+      	alert(error);
         this.isLoginFailed = true;
       } else {
         const storage = (rememberme ? localStorage : sessionStorage);
