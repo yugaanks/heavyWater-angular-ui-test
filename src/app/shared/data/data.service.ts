@@ -18,7 +18,11 @@ export class DataService {
   private data;
   private role;
   private operation;
+
+  //search term input by the user
   private search_term;
+
+  // search term and ad (add new order) observables and subjects
   getSearchTerm$: Observable<any>;
   private getSearchTermSubject = new Subject<any>();
 
@@ -26,6 +30,7 @@ export class DataService {
   private adSubject = new Subject<any>();
 
   constructor(private http: Http,private auth: Auth) {
+    // initializing both the observables
     this.getSearchTerm$ = this.getSearchTermSubject.asObservable();
     this.ad$=this.adSubject.asObservable();
   }
@@ -77,10 +82,12 @@ export class DataService {
     return this.http.post(`${this.addApp}`,appData);
   }
 
+// created two methods here, getSearchTerm sends the search term input by the user to all it's subscribers
   getSearchTerm(search_term) {
     this.getSearchTermSubject.next(search_term);
   }
 
+// ad method sends a tick or let the subscribers know that a new order has been placed, so the list component can load the latest order immediately without reloading
   ad() {
     this.adSubject.next();
   }

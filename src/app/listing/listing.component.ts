@@ -13,7 +13,6 @@ import {Observable} from 'rxjs/Rx';
   styleUrls: ['./listing.component.scss']
 })
 export class ListingComponent implements OnInit, OnChanges {
-  private iterableDiffer: any;
   private items: any;
   private sub: any;
   private selectedItem: any;
@@ -36,6 +35,8 @@ export class ListingComponent implements OnInit, OnChanges {
     });
       this.searchTerm=undefined;
    this.items = this.data.fetchApplicationsList();
+
+   //subscribers, for search term and add new orders
    this.data.getSearchTerm$.subscribe((st) => {
                 this.searchTerm = st; 
             }
@@ -57,7 +58,7 @@ export class ListingComponent implements OnInit, OnChanges {
 
   ngOnInit() {
   }
-
+  // whenever any changes are made at back-end, this method will probably fire (not sure)
   ngOnChanges(changes: SimpleChanges) {
     this.items=this.data.fetchApplicationsList();
   }

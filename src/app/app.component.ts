@@ -24,6 +24,7 @@ export class AppComponent {
     console.log('Refreshing')
   }
 
+  // this method takes the input text value of the search input box and pass it to the service which later on, sends it to the subscribers
   trySearching(inputTextValue) {
     this.data.getSearchTerm(inputTextValue);
   }

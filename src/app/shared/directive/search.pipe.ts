@@ -1,3 +1,6 @@
+/*
+* Pipe for search, keys currently it filters are LoanNumber, Borrower_LastName, and Borrower_FirstName
+*/
 import {Pipe, PipeTransform} from '@angular/core';
 
 @Pipe({
