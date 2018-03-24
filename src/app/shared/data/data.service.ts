@@ -88,8 +88,11 @@ export class DataService {
   }
 
 // ad method sends a tick or let the subscribers know that a new order has been placed, so the list component can load the latest order immediately without reloading
-  ad() {
-    this.adSubject.next();
+  ad(ev) {
+    //console.log(typeof ev._body);
+    //console.log(ev._body);
+    //console.log(ev._body.slice(ev._body.indexOf("OrderId")+10, ev._body.indexOf("LookBack_Period")-3));
+    this.adSubject.next(ev._body.slice(ev._body.indexOf("OrderId")+10, ev._body.indexOf("LookBack_Period")-3));
   }
 
   load() {

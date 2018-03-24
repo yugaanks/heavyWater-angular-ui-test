@@ -6,6 +6,9 @@ import {AnonymousSubscription} from "rxjs/Subscription";
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/share';
 import {Observable} from 'rxjs/Rx';
+import {merge} from 'rxjs/observable/merge';
+import {of} from 'rxjs/observable/of';
+import {mergeMap, map}from'rxjs/operators';
 
 @Component({
   selector: 'app-listing',
@@ -41,9 +44,24 @@ export class ListingComponent implements OnInit, OnChanges {
                 this.searchTerm = st; 
             }
         );
-   this.data.ad$.subscribe((()=> {
-                                   this.items=this.data.fetchApplicationsList();
-                                 }));
+   this.data.ad$.subscribe(((ev)=> {
+                 console.log(ev);
+                 console.log(this.data.fetchApplicationsDetails(ev));
+                 try {
+                  let x=this.data.fetchApplicationsDetails(ev);
+                  this.items=x.mergeMap(latest => {
+                    const fullResult$ = this.items.map(featured => [latest,...featured]);
+                    return merge(of([latest], fullResult$));
+                  });
+                 }
+                 catch(err) {
+                    console.log(err);
+                 }
+                 finally {
+                   this.items=this.data.fetchApplicationsList();
+                 }
+                  
+             }));
   }
    
   loadItemDetails(id) {

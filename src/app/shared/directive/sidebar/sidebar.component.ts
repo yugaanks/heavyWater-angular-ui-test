@@ -16,6 +16,6 @@ export class SidebarComponent {
   addNewApp() {
     let dialogRef = this.dialog.open(NewAppDialogComponent);
     // letting the service know, that a new order was added
-    dialogRef.afterClosed().subscribe(ev => ev && this.data.saveNewApplication(ev).subscribe(()=>this.data.ad()));
+    dialogRef.afterClosed().subscribe(ev => ev && this.data.saveNewApplication(ev).subscribe((dx)=>this.data.ad(dx)));
      }
 }
